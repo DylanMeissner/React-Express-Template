@@ -1,0 +1,12 @@
+# Deployment directories
+node_modules
+dist
+
+# Optional npm cache directory
+.npm
+
+# Mac
+.DS_Store
+
+# Local Build
+public/views
