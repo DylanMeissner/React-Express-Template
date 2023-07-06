@@ -7,16 +7,15 @@
     "dev": "webpack --mode development && open http://localhost:3000/ && ts-node server/index.ts ",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode=production --node-env=production",
-    "build:dev": "webpack --mode=development",
-    "build:prod": "webpack --mode=production --node-env=production",
-    "watch": "webpack --watch",
-    "serve": "webpack serve"
+    "build:dev": "rm -rf dist/ && webpack --mode=development",
+    "build:prod": "rm -rf dist/ && webpack --mode=production --node-env=production"
   },
   "keywords": [],
   "author": "Dylan Meissner",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.22.1",
+    "@types/dotenv": "^8.2.0",
     "@types/ejs": "^3.1.2",
     "@types/express": "^4.17.17",
     "@types/file-loader": "^5.0.1",
@@ -30,6 +29,7 @@
     "autoprefixer": "^10.4.13",
     "babel-loader": "^9.1.2",
     "css-loader": "^6.8.1",
+    "dotenv": "^16.1.4",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.1",
     "mini-css-extract-plugin": "^2.7.0",
