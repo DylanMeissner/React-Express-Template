@@ -1,6 +1,7 @@
 # Deployment directories
 node_modules
 dist
+coverage
 
 # Optional npm cache directory
 .npm

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header Component Renders the expected header content 1`] = `
+<body>
+  <div>
+    <h1>
+      This is a header
+    </h1>
+  </div>
+</body>
+`;
