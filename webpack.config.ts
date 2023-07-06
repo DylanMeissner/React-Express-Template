@@ -1,16 +1,19 @@
-// Generated using webpack-cli https://github.com/webpack/webpack-cli
+import webpack from "webpack";
+import { loadEnvironment } from "./utils/loadEnvironment";
 
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { HotModuleReplacementPlugin } = require("webpack");
+loadEnvironment();
 
 const isProduction = process.env.NODE_ENV == "production";
 const isDevCacheEnabled = process.env.ENABLE_DEV_CACHE;
 
 const stylesHandler = MiniCssExtractPlugin.loader;
 
-const config = {
+const config: webpack.Configuration = {
+  mode: isProduction ? "production" : "development",
   entry: {
     home: [
       "webpack-hot-middleware/client?reload=true",
@@ -23,7 +26,11 @@ const config = {
   },
   output: {
     path: path.resolve(__dirname, "dist"),
-    publicPath: "/"
+    publicPath: "/",
+    filename:
+      isProduction || isDevCacheEnabled === "true"
+        ? "[name].[contenthash].js"
+        : "[name].js"
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -37,7 +44,12 @@ const config = {
       chunks: ["about"]
     }),
     new HotModuleReplacementPlugin(),
-    new MiniCssExtractPlugin()
+    new MiniCssExtractPlugin({
+      filename:
+        isProduction || isDevCacheEnabled === "true"
+          ? "[name].[contenthash].css"
+          : "[name].css"
+    })
   ],
   module: {
     rules: [
@@ -101,12 +113,4 @@ const config = {
   }
 };
 
-module.exports = () => {
-  if (isProduction) {
-    config.mode = "production";
-  } else {
-    config.mode = "development";
-  }
-
-  return config;
-};
+export default config;

@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
 import * as path from "path";
+import { loadEnvironment } from "../utils/loadEnvironment";
+import config from "../webpack.config";
+
+loadEnvironment();
 
 const express = require("express");
 const app = express();
@@ -10,16 +14,14 @@ const DIST_DIR = path.join(__dirname, "../dist");
 
 // Step 1: Create & configure a webpack compiler
 const webpack = require("webpack");
-const webpackConfig = require(process.env.WEBPACK_CONFIG
-  ? process.env.WEBPACK_CONFIG
-  : "../webpack.config")();
+const webpackConfig = config;
 const compiler = webpack(webpackConfig);
 
 if (!isProduction) {
   // Step 2: Attach the dev middleware to the compiler & the server
   app.use(
     require("webpack-dev-middleware")(compiler, {
-      publicPath: webpackConfig.output.publicPath
+      publicPath: webpackConfig?.output?.publicPath
     })
   );
 
